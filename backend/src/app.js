@@ -4,6 +4,7 @@ const express = require("express"),
   { App } = require("./config"),
   routerProducts = require("./routes/products.routes"),
   routerUsers = require("./routes/users.routes"),
+  routerComment = require("./routes/comment.routes"),
   setupRoles = require("./config/initialSetup"),
   app = express();
 
@@ -16,5 +17,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/users", routerUsers);
 app.use("/api/products", routerProducts);
+app.use("/api/comment", routerComment);
 
 module.exports = app;

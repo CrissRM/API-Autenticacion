@@ -66,7 +66,10 @@ users.postSignIn = async (req, res) => {
           .status(404)
           .json({ message: "El usuerio o contraseña no es correcto" });
       else {
-        res.status(200).json({ message: "Ingresando a su cuenta..." });
+        const token = jwt.sign({ id: user._id }, JSONWebToken.key_secret, {
+          expiresIn: 60 * 60,
+        });
+        res.status(200).json({ message: "Ingresando a su cuenta...", token });
       }
     }
   } catch (error) {}

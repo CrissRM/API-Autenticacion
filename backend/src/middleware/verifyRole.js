@@ -4,7 +4,8 @@ const User = require("../model/User"),
 
 role.authorizeSuperAdmin = async (req, res, next) => {
   const user = await User.findById(req.id);
-  if (user.role[0].name === "super-admin") next();
+  const role = await Role.findById(user.role[0]);
+  if (role.name === "super-admin") next();
   else
     res
       .status(404)
@@ -13,9 +14,9 @@ role.authorizeSuperAdmin = async (req, res, next) => {
 
 role.authorizeSuperAdminAndAdmin = async (req, res, next) => {
   const user = await User.findById(req.id);
+  const role = await Role.findById(user.role[0]);
 
-  if (user.role[0].name === "super-admin" || user.role[0].name === "admin")
-    next();
+  if (role.name === "super-admin" || user.name === "admin") next();
   else
     res
       .status(404)
@@ -24,11 +25,11 @@ role.authorizeSuperAdminAndAdmin = async (req, res, next) => {
 
 role.authorizeSuperAdminAndAdminAndModerator = async (req, res, next) => {
   const user = await User.findById(req.id);
-
+  const role = await Role.findById(user.role[0]);
   if (
-    user.role[0].name === "super-admin" ||
-    user.role[0].name === "admin" ||
-    user.role[0].name === "moderator"
+    role.name === "super-admin" ||
+    role.name === "admin" ||
+    role.name === "moderator"
   )
     next();
   else

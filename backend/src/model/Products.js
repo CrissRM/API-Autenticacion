@@ -24,9 +24,8 @@ const productSchema = new Schema(
       type: Number,
       default: 0,
     },
-    count_comments: {
-      type: Number,
-      default: 0,
+    comments: {
+      type: Array,
     },
     image: {
       type: String,

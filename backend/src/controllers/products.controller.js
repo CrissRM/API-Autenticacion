@@ -1,5 +1,6 @@
 const products = {};
 const Products = require("../model/Products"),
+  Comment = require("../model/Comment"),
   cloudinary = require("../config/cloudinary.config"),
   fse = require("fs-extra"),
   path = require("path"),
@@ -17,6 +18,7 @@ products.getAllProducts = async (req, res) => {
 products.getProduct = async (req, res) => {
   try {
     const product = await Products.findById(req.params.id);
+
     res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ error: "Not Found" });
